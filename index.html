@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <!-- bower:js -->
+      <script src="bower_components/react/react.js"></script>
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <!-- endinject -->
+      <script src="bower_components/react/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <div id="content">
+    </div>
+    <script type="text/jsx">
+      var CommentBox = React.createClass({
+        loadCommentsFromServer: function() {
+          $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              this.setState({data:data});
+            }.bind(this),
+            error: function(xhr, status, error) {
+              console.error(this.props.url, status, error.toString());
+            }.bind(this)
+          });
+        },
+        getInitialState: function() {
+          return {data:[]};
+        },
+        componentDidMount: function() {
+          this.loadCommentsFromServer();
+          setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+        },
+        render: function() {
+          return (
+            <div className="commentBox">
+              <h1>Comments</h1>
+              <CommentList data={this.state.data}/>
+              <CommentForm/>
+            </div>
+          );
+        }
+      });
+
+      var CommentList = React.createClass({
+        render: function() {
+          var commentNodes = this.props.data.map(function(comment) {
+            return (
+              <Comment key={comment.key} author={comment.author}>
+                {comment.text}
+              </Comment>
+            );
+          });
+
+          return (
+            <div className="commentList">
+              {commentNodes}
+            </div>
+          );
+
+        }
+      });
+
+      var CommentForm = React.createClass({
+        render: function() {
+          return (
+            <div className="commentForm">
+              Hello, world! I am a CommentForm.
+            </div>
+          );
+        }
+      });
+
+      var Comment = React.createClass({
+        render: function() {
+          return (
+            <div className="comment">
+              <h2 className="commentAuthor">
+                {this.props.author}
+              </h2>
+              {this.props.children}
+            </div>
+          );
+        }
+      });
+
+    React.render(
+      <CommentBox url="http://localhost:9292/api/comments" pollInterval={2000}/>,
+      document.getElementById('content')
+    );
+    </script>
+  </body>
+</html>
