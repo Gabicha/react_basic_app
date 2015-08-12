@@ -42,10 +42,7 @@
             dataType: 'json',
             cache: false,
             success: function(data) {
-              console.log('data', data.html);
-              console.log('text:', $("lastPostContent").val());
               $("#lastPostContent").html(data.html);
-              alert($("#lastPostContent").text());
             }.bind(this),
             error: function(xhr, status, error) {
               console.error(this.props.url, status, error.toString());
