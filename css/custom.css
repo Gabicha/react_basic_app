@@ -1,0 +1,7 @@
+#contentEditable, #lastPostContent {
+  border: 1px solid black;
+  width: 200px;
+  height: 200px;
+  margin-left: 4%;
+  margin-top: 1%;
+}
