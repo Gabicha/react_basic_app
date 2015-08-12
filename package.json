@@ -1,0 +1,27 @@
+{
+  "name": "react_basic_app",
+  "version": "0.0.1",
+  "description": "React basic app",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-debug": "^2.1.0",
+    "gulp-inject": "^1.5.0",
+    "gulp-server-livereload": "^1.4.0",
+    "main-bower-files": "^2.9.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diablouma/react_basic_app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diablouma/react_basic_app/issues"
+  },
+  "homepage": "https://github.com/diablouma/react_basic_app#readme"
+}
