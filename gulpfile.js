@@ -15,10 +15,10 @@ gulp.task('index', function () {
 
 
 gulp.task('serve', function() {
-  gulp.src('app')
+  gulp.src('.')
     .pipe(server({
       livereload: true,
-      directoryListing: true,
+      defaultFile: "index.html",
       open: true
     }));
 });
