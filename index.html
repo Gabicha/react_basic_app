@@ -6,7 +6,7 @@
     <!-- bower:css -->
 
     <link rel="stylesheet" href="bower_components/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css">
-
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- endinject -->
     <!-- bower:js -->
       <script src="bower_components/react/react.js"></script>
@@ -14,175 +14,30 @@
       <script src="bower_components/alloyeditor/dist/alloy-editor/alloy-editor-all-min.js"></script>
       <!-- endinject -->
       <script src="bower_components/react/JSXTransformer.js"></script>
-
       <!-- custom css -->
-
       <link href="css/custom.css" rel="stylesheet">
+      <link rel="stylesheet" href="css/blog.css">
   </head>
   <body>
-    <div id="content">
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item active" href="#">Inicio</a>
+          <a class="blog-nav-item" href="#">Todos los posts</a>
+          <a class="blog-nav-item" href="#">Como postear?</a>
+          <a class="blog-nav-item" href="#">Acerca del sitio</a>
+        </nav>
+      </div>
     </div>
 
-    <script type="text/jsx">
-      var CommentBox = React.createClass({
-        loadCommentsFromServer: function() {
-          $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-              this.setState({data:data});
-            }.bind(this),
-            error: function(xhr, status, error) {
-              console.error(this.props.url, status, error.toString());
-            }.bind(this)
-          });
-        },
-        loadPostFromServer: function() {
-          $.ajax({
-            url: "http://localhost:9292/api/blogPosts",
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-              $("#lastPostContent").html(data.html);
-            }.bind(this),
-            error: function(xhr, status, error) {
-              console.error(this.props.url, status, error.toString());
-            }.bind(this)
-          });
-        },
-        handleCommentSubmit: function(comment) {
-          $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            type: 'POST',
-            data: comment,
-            success: function(data) {
-              console.log('success', data)
-              this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-              console.error(this.props.url, status, err.toString());
-            }.bind(this)
-          });
-        },
-        handlePostSubmit: function() {
-          $.ajax({
-            url: this.props.postUrl,
-            dataType: 'json',
-            type: 'POST',
-            data: {"html":$("#contentEditable").html()},
-            success: function() {
-              alert('Published succesfully!!');
-            }.bind(this),
-            error: function(xhr, status, err) {
-              console.error(this.props.postUrl, status, err.toString());
-            }.bind(this)
-          });
-        },
-        getInitialState: function() {
-          return {data:[]};
-        },
-        componentDidMount: function() {
-          this.loadCommentsFromServer();
-          this.loadPostFromServer();
-          // setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-        },
-        render: function() {
-          return (
-            <div className="commentBox">
-              <h1>Comments</h1>
-              <CommentList data={this.state.data}/>
-              <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
-              <PostForm onPostSubmit={this.handlePostSubmit}/>
-            </div>
+    <div class="container">
+      <div class="blog-header">
+        <h1 class="blog-title">Mujeres en TI</h1>
+        <p class="lead blog-description">Compartir experiencias</p>
+      </div>
+      <div id="content"></div>
+    </div>
 
-          );
-        }
-      });
-
-      var CommentList = React.createClass({
-        render: function() {
-          var commentNodes = this.props.data.map(function(comment) {
-            return (
-              <Comment key={comment.key} author={comment.author}>
-                {comment.text}
-              </Comment>
-            );
-          });
-
-          return (
-            <div className="commentList">
-              {commentNodes}
-            </div>
-          );
-
-        }
-      });
-
-      var CommentForm = React.createClass({
-        handleSubmit: function(e) {
-          e.preventDefault();
-          var author = React.findDOMNode(this.refs.author).value.trim();
-          var text = React.findDOMNode(this.refs.text).value.trim();
-
-          if (!text || !author) {
-            return
-          }
-
-          this.props.onCommentSubmit({author: author, text:text})
-
-          React.findDOMNode(this.refs.author).value = '';
-          React.findDOMNode(this.refs.text).value = '';
-        },
-        render: function() {
-          return (
-            <form className="commentForm" onSubmit={this.handleSubmit}>
-              <input type="text" placeholder="Your name" ref="author"/>
-              <input type="text" placeholder="Say something..." ref="text"/>
-              <input type="submit" value="Post" />
-            </form>
-          );
-        }
-      });
-
-      var Comment = React.createClass({
-        render: function() {
-          return (
-            <div className="comment" id="comment">
-              <h2 className="commentAuthor">
-                {this.props.author}
-              </h2>
-              {this.props.children}
-            </div>
-          );
-        }
-      });
-
-      var PostForm = React.createClass({
-        handleSubmit: function(e) {
-          e.preventDefault();
-          this.props.onPostSubmit();
-        },
-        render: function() {
-          return (
-            <form className="postForm" onSubmit={this.handleSubmit}>
-              <div id="contentEditable"/>
-              <div id="lastPostContent"/>
-              <input type="submit" value="Publish" />
-            </form>
-          );
-        }
-      });
-
-    React.render(
-      <CommentBox url="http://localhost:9292/api/comments"
-      postUrl="http://localhost:9292/api/blogPosts"/>,
-      document.getElementById('content')
-    );
-
-    AlloyEditor.editable('contentEditable');
-    // AlloyEditor.editable('lastPostContent');
-    </script>
+    <script type="text/jsx" src="js/components/post-form.js"></script>
   </body>
 </html>

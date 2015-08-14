@@ -5,3 +5,11 @@
   margin-left: 4%;
   margin-top: 1%;
 }
+
+#post-content-editable {
+  border: 1px solid #B3B3B3;
+  height: auto;
+  min-height: 500px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
