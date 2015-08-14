@@ -28,7 +28,7 @@ var PostForm = React.createClass({
 
 React.render(
   <PostForm postUrl="http://localhost:9292/api/blogPosts" />,
-  document.getElementById('content')
+  document.getElementById('new-post')
 );
 
 AlloyEditor.editable('post-content-editable');
