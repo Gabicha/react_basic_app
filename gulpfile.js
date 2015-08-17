@@ -14,7 +14,7 @@ gulp.task('index', function () {
 });
 
 gulp.task('precompile-jsx', function () {
-    return gulp.src('src/js/*/*.jsx')
+    return gulp.src('src/js/**/*.jsx')
         .pipe(react({harmony: true}))
         .pipe(gulp.dest('dist'));
 });
