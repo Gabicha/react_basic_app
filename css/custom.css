@@ -7,9 +7,8 @@
 }
 
 #post-content-editable {
-  border: 1px solid #B3B3B3;
+  border: 1px solid #D6D6D6;
   height: auto;
   min-height: 500px;
-  margin-top: 10px;
   margin-bottom: 10px;
 }

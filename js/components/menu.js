@@ -14,13 +14,13 @@ var Menu = React.createClass({
       <div className="blog-masthead">
         <div className="container">
           <nav className="blog-nav">
-            <a id="home" className={this.state.activeMenu == 'home' ? "active blog-nav-item" : "blog-nav-item"}
+            <a id="home" className={this.state.activeMenu == 'home' ? 'active blog-nav-item' : 'blog-nav-item'}
                href="#" onClick={this.selectMenu}>
-              Inicio
+              Home
             </a>
-            <a id="about" className={this.state.activeMenu == 'about' ? "active blog-nav-item" : "blog-nav-item"}
+            <a id="about" className={this.state.activeMenu == 'about' ? 'active blog-nav-item' : 'blog-nav-item'}
                href="#" onClick={this.selectMenu}>
-              Acerca del sito
+              Write
             </a>
           </nav>
         </div>

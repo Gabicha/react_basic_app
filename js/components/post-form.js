@@ -18,7 +18,7 @@ var PostForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="postForm form-group" onSubmit={this.handleSubmit}>
+      <form className="form-group" onSubmit={this.handleSubmit}>
         <div id="post-content-editable"/>
         <input className="btn btn-primary" type="submit" value="Publish" />
       </form>
