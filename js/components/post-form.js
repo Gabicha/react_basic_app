@@ -27,7 +27,7 @@ var PostForm = React.createClass({
 });
 
 React.render(
-  <PostForm postUrl="http://localhost:9292/api/blogPosts" />,
+  <PostForm postUrl="http://localhost:9292/api/blog_posts" />,
   document.getElementById('new-post')
 );
 
