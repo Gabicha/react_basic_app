@@ -3,6 +3,7 @@ var inject = require('gulp-inject');
 var mainBowerFiles = require('main-bower-files');
 var debug = require('gulp-debug');
 var server = require('gulp-server-livereload');
+var react = require('gulp-react');
 
 
 gulp.task('index', function () {
@@ -12,8 +13,13 @@ gulp.task('index', function () {
         .pipe(gulp.dest('./'));
 });
 
+gulp.task('precompile-jsx', function () {
+    return gulp.src('src/js/*/*.jsx')
+        .pipe(react({harmony: true}))
+        .pipe(gulp.dest('dist'));
+});
 
-gulp.task('serve', function() {
+gulp.task('serve', ['index', 'precompile-jsx'], function() {
   gulp.src('.')
     .pipe(server({
       livereload: true,
