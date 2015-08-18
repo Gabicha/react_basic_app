@@ -28,7 +28,13 @@ gulp.task('precompile-jsx', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('serve', ['index', 'precompile-jsx'], function() {
+gulp.task('watch', function() {
+    gulp.watch('src/js/**/*.jsx', function() {
+      gulp.run('precompile-jsx');
+    });
+});
+
+gulp.task('serve', ['index', 'precompile-jsx', 'watch'], function() {
   gulp.src('.')
     .pipe(server({
       livereload: true,

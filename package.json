@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "React basic app",
   "main": "gulpfile.js",
-  "dependencies": {},
+  "dependencies": {
+
+  },
   "devDependencies": {
     "bower": "^1.4.1",
     "gulp": "^3.9.0",
