@@ -9,7 +9,7 @@ var PostForm = React.createClass({
       type: 'POST',
       data: {'html':$('#post-content-editable').html()},
       success: function() {
-        alert('Published succesfully!!');
+        $('#submit-message').text('Successfully published!');
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.postUrl, status, err.toString());
@@ -18,10 +18,13 @@ var PostForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="form-group" onSubmit={this.handleSubmit}>
-        <div id="post-content-editable"/>
-        <input className="btn btn-primary" type="submit" value="Publish" />
-      </form>
+        <div>
+          <form className="form-group" onSubmit={this.handleSubmit}>
+            <div id="post-content-editable"/>
+            <input id="publish-post" className="btn btn-primary" type="submit" value="Publish" />
+          </form>
+          <div id="submit-message"></div>
+      </div>
     );
   }
 });

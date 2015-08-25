@@ -28,13 +28,22 @@ gulp.task('precompile-jsx', function () {
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('precompile-specs', function () {
+    return gulp.src('spec/**/*_spec.jsx')
+        .pipe(react({harmony: true}))
+        .pipe(gulp.dest('tests'));
+});
+
 gulp.task('watch', function() {
+    gulp.watch('spec/**/*_spec.jsx', function() {
+        gulp.run('precompile-specs');
+    });
     gulp.watch('src/js/**/*.jsx', function() {
-      gulp.run('precompile-jsx');
+        gulp.run('precompile-jsx');
     });
 });
 
-gulp.task('serve', ['index', 'precompile-jsx', 'watch'], function() {
+gulp.task('serve', ['index', 'precompile-jsx', 'precompile-specs', 'watch'], function() {
   gulp.src('.')
     .pipe(server({
       livereload: true,
